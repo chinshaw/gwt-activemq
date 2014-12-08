@@ -1,0 +1,2 @@
+# Module com.google.gwt.activemq.ActiveMQ.JUnit
+# RPC service class, partial path of RPC policy file
