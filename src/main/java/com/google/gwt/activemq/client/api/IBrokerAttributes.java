@@ -1,8 +1,7 @@
 package com.google.gwt.activemq.client.api;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public interface IActiveMQAttributes {
+public interface IBrokerAttributes {
 
 	String getBrokderId();
 
@@ -11,8 +10,6 @@ public interface IActiveMQAttributes {
 	String getBrokerName();
 
 	boolean getPersistent();
-
-	TransportConnectors getTransportConnectors();
 
 	boolean getSlave();
 
@@ -61,13 +58,13 @@ public interface IActiveMQAttributes {
 	String getDataDirectory();
 
 	long getTotalEnqueueCount();
-
-	void getQueues(AsyncCallback<Queues> callback);
-
-	void getTopics(AsyncCallback<Topics> callbackO);
-
+	
 	int getMemoryPercentUsage();
 
 	String getUptime();
+
+
+
+
 
 }
