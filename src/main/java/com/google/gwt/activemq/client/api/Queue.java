@@ -98,7 +98,6 @@ public class Queue extends JolokiaReadResponse {
 		return getValuePropertyString("MessageGroupType");
 	}
 	
-	
 	public final int getEnqueueCount() {
 		return getValuePropertyInt("EnqueueCount");
 	}

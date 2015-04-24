@@ -3,9 +3,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.google.gwt.activemq</groupId>
 	<artifactId>gwt-activemq</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>activemq statistics</name>
+	<packaging>jar</packaging>
 
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+					<include>**/*.gwt.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
 
 	<dependencies>
 
@@ -18,8 +30,8 @@
 
 		<dependency>
 			<groupId>com.google.gwt.jolokia</groupId>
-			<artifactId>gwt-jolokia-module</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>gwt-jolokia-client</artifactId>
+			<version>0.0.1</version>
 		</dependency>
 
 		<dependency>

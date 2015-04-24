@@ -25,101 +25,7 @@ public class AMQClient  {
 		client = new JolokiaClient(url, username, password);
 	}
 
-	/*
-	 * public String getBrokderId() { // TODO Auto-generated method stub return
-	 * null; }
-	 * 
-	 * public String getBrokerVersion() { // TODO Auto-generated method stub
-	 * return null; }
-	 * 
-	 * public String getBrokerName() { // TODO Auto-generated method stub return
-	 * null; }
-	 * 
-	 * public boolean getPersistent() { // TODO Auto-generated method stub
-	 * return false; }
-	 * 
-	 * public TransportConnectors getTransportConnectors() { // TODO
-	 * Auto-generated method stub return null; }
-	 * 
-	 * public boolean getSlave() { // TODO Auto-generated method stub return
-	 * false; }
-	 * 
-	 * public int getCurrentConnectionsCount() { // TODO Auto-generated method
-	 * stub return 0; }
-	 * 
-	 * public long getTotalConnectionsCount() { // TODO Auto-generated method
-	 * stub return 0; }
-	 * 
-	 * public long getTotalDequeueCount() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public long getTotalConsumerCount() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public long getTotalProducerCount() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public long getTotalMessageCount() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public long getAverageMessageSize() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public long getMaxMessageSize() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public long getMinMessageSize() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public long getMemoryLimit() { // TODO Auto-generated method stub return
-	 * 0; }
-	 * 
-	 * public long getStoreLimit() { // TODO Auto-generated method stub return
-	 * 0; }
-	 * 
-	 * public int getStorePercentageUsed() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public int getTempLimit() { // TODO Auto-generated method stub return 0;
-	 * }
-	 * 
-	 * public long getTempPercentageUsed() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public long getJobSchedulerStoreLimit() { // TODO Auto-generated method
-	 * stub return 0; }
-	 * 
-	 * public int getJobSchedulerStorePercentUsage() { // TODO Auto-generated
-	 * method stub return 0; }
-	 * 
-	 * public boolean getStatisticsEnabled() { // TODO Auto-generated method
-	 * stub return false; }
-	 * 
-	 * public String getOpenwireURL() { // TODO Auto-generated method stub
-	 * return null; }
-	 * 
-	 * public String getStompURL() { // TODO Auto-generated method stub return
-	 * null; }
-	 * 
-	 * public String getSslURL() { // TODO Auto-generated method stub return
-	 * null; }
-	 * 
-	 * public String getVMURL() { // TODO Auto-generated method stub return
-	 * null; }
-	 * 
-	 * public String getDataDirectory() { // TODO Auto-generated method stub
-	 * return null; }
-	 * 
-	 * public long getTotalEnqueueCount() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public int getMemoryPercentUsage() { // TODO Auto-generated method stub
-	 * return 0; }
-	 * 
-	 * public String getUptime() { // TODO Auto-generated method stub return
-	 * null; }
-	 */
-
+	
 	/**
 	 * Used to retrieve the list of queue objects.
 	 * 
@@ -182,6 +88,14 @@ public class AMQClient  {
 				});
 	}
 	
+	/**
+	 * This is used to retrieve a queue by it's distingished object name. The queueObject name is the
+	 * verbatim objectName you would get back from the {@link #getQueues(String, AsyncCallback)} method.
+	 * 
+	 * @param queueObjectName
+	 * @param callback
+	 * @throws RequestException
+	 */
 	public void getQueue(final String queueObjectName, final AsyncCallback<Queue> callback) throws RequestException {
 		client.getAttribute(queueObjectName, null, null, null, new AsyncCallback<JolokiaReadResponse>() {
 
@@ -190,7 +104,6 @@ public class AMQClient  {
 					}
 
 					public void onSuccess(JolokiaReadResponse result) {
-						System.out.println("Status is " + result.getStatus() + " Error is " + result.getError());
 						if (result.getStatus() != 200) {
 							callback.onFailure(new RequestException("Unable to retrieve queues, Cause:" + result.getError()));
 						} else {
@@ -198,5 +111,10 @@ public class AMQClient  {
 						}
 					}
 				});
+	}
+	
+	public void getQueueByQueueName(final String brokerName, final String destinationName, final AsyncCallback<Queue> callback) throws RequestException {
+		final String queueObjectName = ActiveMQConstants.Templates.QueueObjectNameTemplate(brokerName, destinationName).asString();
+		getQueue(queueObjectName, callback);
 	}
 }
